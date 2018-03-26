@@ -1,0 +1,221 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+</head>
+<body>
+<!-- Start of index page -->
+    <div data-role="page" data-theme="a" id="index">
+        <div data-role="header" data-position="inline">
+            <h1>Calculator</h1>
+        </div><!-- /header -->
+<div class="ui-field-contain">
+    <label for="select-custom-1"></label>
+    <select name="select-custom-1" id="select-custom-1" data-native-menu="false" >
+        <option value="#index">Calculator</option>
+        <option value="#about">COLORS</option>
+        <option value="#services">Rangkuman Materi</option>
+    </select>
+    <script>
+    $(function(){
+      // bind change event to select
+      $('#select-custom-1').bind('change', function () {
+          var url = $(this).val(); // get selected value
+          if (url) { // require a URL
+              $.mobile.changePage( url, { transition: "slide", changeHash: false });
+          }
+          return false;
+      });
+    });
+</script>
+</div>
+        <div data-role="content" data-theme="a" >
+        <body>
+      <div class="panel">
+         <p>
+            Enter decimal number to convert, select Base and click   CONVERT.
+         </p>
+         <input type="text">
+         <select id="selectid" name="selectname">
+            <option value="binary">binary</option>
+        <option value="octal">octal</option>
+        <option value="hexadecimal">hexadecimal</option>
+         </select>
+        
+         <button id="button1" name="Button1" >Convert</button>   
+      </div>
+      <div class="answer" id="answer">
+      </div>
+      <script>
+         var Answer = function(e) {
+             var radix;
+             var radixStr = document.getElementById('selectid').value;
+             var val = parseInt(document.getElementsByTagName("input")[0].value);
+             switch(radixStr) {
+               case "binary":
+                 radix = 2;
+                 break;
+               case "octal":
+                 radix = 8;
+                 break;
+               case "hexadecimal":
+                 radix = 16;
+                 break;
+             } 
+
+             document.getElementById("answer").innerHTML = val.toString(radix);
+             e.preventDefault();
+             return false;
+          }
+         document.getElementById("button1").addEventListener("click",Answer);
+         </script>
+      </body>
+
+        </div><!-- /content -->
+        <div data-role="footer" data-theme="a">
+        </div><!-- /footer -->
+    </div><!-- /index page -->
+
+<!-- Start of about page -->
+    <div data-role="page" data-theme="a" id="about">
+        <div data-role="header" data-position="inline">
+            <h1>Color Hex to RGB</h1>
+        </div><!-- /header -->
+<div class="ui-field-contain">
+    <label for="select-custom-2"></label>
+    <select name="select-custom-2" id="select-custom-2" data-native-menu="false">
+        <option value="#index">Calculator</option>
+        <option value="#about" selected="selected">COLORS</option>
+        <option value="#services">Rangkuman Materi</option>
+    </select>
+    <script>
+    $(function(){
+      // bind change event to select
+      $('#select-custom-2').bind('change', function () {
+          var url = $(this).val(); // get selected value
+          if (url) { // require a URL
+              $.mobile.changePage( url, { transition: "slide", changeHash: false });
+          }
+          return false;
+      });
+    });
+</script>
+</div>
+        <div data-role="content" data-theme="a">
+        <p> Masukkan Hex Input : </p>
+        <input id="hexinput" type='text' class="pickedColor" type="text" onkeyup="changeColor(this.className)" />
+        
+</br>
+<input class="elementToChange" style="height:50px; width:100%; border:1px solid black" type="text"></input>
+<script>
+    function changeColor(className){
+     document.getElementsByClassName("elementToChange")[0].style.background = document.getElementsByClassName(className)[0].value;
+    }
+</script>
+<br />
+<h1 id="results"></h1>
+        </div><!-- /content -->
+        <div data-role="footer" data-theme="a">
+        </div><!-- /footer -->
+    </div><!-- /about page -->
+
+    <!-- Start of services page -->
+    <div data-role="page" data-theme="a" id="services">
+        <div data-role="header" data-position="inline">
+            <h1>Rangkuman Materi</h1>
+        </div><!-- /header -->
+<div class="ui-field-contain">
+    <label for="select-custom-3"></label>
+    <select name="select-custom-3" id="select-custom-3" data-native-menu="false">
+        <option value="#index">Calculator</option>
+        <option value="#about">COLORS</option>
+        <option value="#services" selected="selected">Rangkuman Materi</option>
+    </select>
+    <script>
+    $(function(){
+      // bind change event to select
+      $('#select-custom-3').bind('change', function () {
+          var url = $(this).val(); // get selected value
+          if (url) { // require a URL
+              $.mobile.changePage( url, { transition: "slide", changeHash: false });
+          }
+          return false;
+      });
+    });
+
+function hexToRgba(hex) {
+    var bigint, r, g, b, a;
+    //Remove # character
+    var re = /^#?/;
+    var aRgb = hex.replace(re, '');
+    if (aRgb.length == 3) {
+        bigint = parseInt(aRgb, 16);
+        r = (bigint >> 4) & 255;
+        g = (bigint >> 2) & 255;
+        b = bigint & 255;
+        return "rgba(" + r + "," + g + "," + b + ")";
+    }
+    if (aRgb.length == 6) {
+        bigint = parseInt(aRgb, 16);
+        r = (bigint >> 16) & 255;
+        g = (bigint >> 8) & 255;
+        b = bigint & 255;
+        return "rgba(" + r + "," + g + "," + b + ")";
+    }
+    if (aRgb.length == 8) {
+        bigint = parseInt(aRgb, 16);
+        a = ((bigint >> 24) & 255) / 255;
+        r = (bigint >> 16) & 255;
+        g = (bigint >> 8) & 255;
+        b = bigint & 255;
+        return "rgba(" + r + "," + g + "," + b + "," + a.toFixed(1) + ")";
+}
+
+}
+
+$('#hexinput').on('input', function () {
+    $('#results').text(hexToRgba($('#hexinput').val()));
+});
+$('#myTextbox1').on('input', function () {
+    alert('Text1 changed!');
+});
+
+</script>
+</div>
+        <div data-role="content" data-theme="a">
+        <h1>Rangkuman Materi PPM</h1>
+        <ul data-role="listview">
+    <li><p>1. pertama kali pertemuan mengenai introduction to technology dimana teknologi selalu berkembang dari gadget,dll </p></li>
+    <li><p>2. pertemuan selanjutnya perkenalan tentang github dimana kita diperkenalkan dengan <a href="https://try.github.io"> try github io </a> dimana kita diajari banyak hal perkenalan command terhadap github seperti </p><p>-.  Git init digunakan untuk meng create git repository. Repository dibuat dalam /.git/ <br>
+-.  Git status digunakan untuk mengecek status git repository kita sekarang untuk mengecek apakah ada file baru atau tidak.<br>
+-.  Git add <files> dapat digunakan untuk mengcreate file baru dalam repository atau meng track file yang di add. Biasanya file akan masuk staging area apakah akan di commit atau tidak.
+Bisa menggunakan filter/wildcard untuk melakukan add.<br>
+-.  Git Commit digunakan untuk mengcommit change yang akan dimasukkan ke repository dari staging area<br>
+-.  Git log digunakan untuk menampilkan tanggal dan waktu serta apa saja perubahan commit yang dilakukan dalam repository tersebut<br>
+-.  Git remote add <name> <link git repo>  digunakan untuk membuat remote repository dari local server dan dikirim ke github server saat mem push file.<br>
+-.  Git push digunakan untuk memasukkan file dalam local server dan dikirim ke github server. Jika diberi –u command maka git akan mengingat origin sebagai parameter.<br>
+-.  Git pull origin master digunakan untuk mengambil file yang terdapat dalam server github dari file yang terakhir di ubah.<br>
+-.  Git diff digunakan untuk dapat men track apa saja perubahan yang terjadi dalam sebuah file. Untuk mengecheck last commit dapat gunakan command HEAD<br>
+-. Git reset digunakan untuk membuang perubahan file baru yang terdapat dalam stage area.<br>
+-. Git checkout digunakan untuk mengembalikan semua file seperti semula sebelum commit terakhir.<br>
+-. Git branch digunakan untuk membuat sebuah cabang commit yang dapat digunakan untuk commit changes / bugfix yang nantinya diimplementasikan ke main branch<br>
+-. Git rm digunakan untuk me remove file yang diinginkan<br>
+-. Git merge digunakan untuk merging branch master dan branch cabang/dummy sehingga isinya digabung menjadi 1<br>
+</p></li>
+    <li><p>3. untuk pertemuan" selanjutnya kita diajarkan menggunakan jquery mobile dimana kita diminta untuk membuat beberapa element dan interface seperti tabs, button, swipe,dll. </p></li>
+    <li><p>4. pertemuan terakhir sebelum test kita diajarkan tentang angular </p></li>
+</ul>
+        
+        
+
+
+        </div><!-- /content -->
+        <div data-role="footer" data-theme="a">
+        </div><!-- /footer -->
+    </div><!-- /services page -->
+
+</body>
+</html>
